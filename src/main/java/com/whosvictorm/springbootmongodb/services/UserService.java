@@ -6,6 +6,7 @@ import com.whosvictorm.springbootmongodb.services.exception.ObjectNotFoundExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.whosvictorm.springbootmongodb.domain.User;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,11 @@ public class UserService {
 
     public User insert(User obj){
         return repository.insert(obj);
+    }
+
+    public void delete(String id){
+        findById(id);
+        repository.deleteById(id);
     }
 
     public User fromDTO(UserDTO objDTO){
