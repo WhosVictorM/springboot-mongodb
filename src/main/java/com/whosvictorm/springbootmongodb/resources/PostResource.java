@@ -3,6 +3,7 @@ package com.whosvictorm.springbootmongodb.resources;
 import com.whosvictorm.springbootmongodb.domain.Post;
 import com.whosvictorm.springbootmongodb.domain.User;
 import com.whosvictorm.springbootmongodb.dto.UserDTO;
+import com.whosvictorm.springbootmongodb.resources.util.URL;
 import com.whosvictorm.springbootmongodb.services.PostService;
 import com.whosvictorm.springbootmongodb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,14 @@ public class PostResource {
         Post user = service.findById(id);
 
         return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping(path = "/titlesearch")
+    public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "title", defaultValue = "") String title){
+
+        title = URL.decodeParam(title);
+        List<Post> list = service.findByTitle(title);
+
+        return ResponseEntity.ok().body(list);
     }
 }
